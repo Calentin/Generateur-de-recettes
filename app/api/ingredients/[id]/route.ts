@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { ingredients } from "@/lib/schema";
-import { eq, param } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 

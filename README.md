@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Recettes
 
-## Getting Started
+Génère des recettes de cuisine à partir des ingrédients disponibles, en s'appuyant sur GPT (texte + images).
 
-First, run the development server:
+## Stack
+
+- Next.js 16 / React 19
+- Drizzle ORM + PostgreSQL (Neon)
+- Vercel AI SDK + OpenAI (`gpt-4.1-mini`, `gpt-image-1`)
+
+## Configuration
+
+1. Copiez `.env.example` en `.env` et renseignez vos propres valeurs :
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `DATABASE_URL` : chaîne de connexion vers votre base PostgreSQL (ex. [Neon](https://neon.tech), Supabase, ou une instance locale)
+- `OPENAI_API_KEY` : votre clé API OpenAI
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Créez les tables sur votre base :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx drizzle-kit push
+```
 
-## Learn More
+## Développement
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ouvrez [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Déploiement
 
-## Deploy on Vercel
+L'app se déploie facilement sur [Vercel](https://vercel.com/new) : importez le repo, renseignez `DATABASE_URL` et `OPENAI_API_KEY` dans les variables d'environnement du projet, puis déployez.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pour protéger votre clé OpenAI d'un usage abusif une fois l'app publique, `app/api/chat/route.ts` limite le nombre de générations de recettes par visiteur et par jour (`IP_LIMIT_PER_DAY`) ainsi qu'un plafond global quotidien pour tout le site (`GLOBAL_LIMIT_PER_DAY`). Ajustez ces constantes selon votre budget.

@@ -18,8 +18,11 @@ export default function Page() {
   // useRef permet de créer le transport une seule fois et de garder une référence stable en mémoire
   // Sans useRef, un nouvel objet DefaultChatTransport serait recrée à chaque render ce qui pourrait réinitialiser useChat
   const transportRef = useRef(new DefaultChatTransport({api: "/api/chat"}));
+  const [limitMessage, setLimitMessage] = useState<string | null>(null);
+
   const {sendMessage, status} = useChat({
     transport: transportRef.current,
+    onError: (error) => setLimitMessage(error.message),
   })
 
   const isLoading = status === "streaming" || status === "submitted";
@@ -104,6 +107,7 @@ export default function Page() {
   }
 
   function handleGenerate() {
+    setLimitMessage(null);
     const list = ingredients
       .map((i) => `${i.name}${i.quantity ? ` (${i.quantity})` : ""}`)
       .join(", ");
@@ -149,6 +153,12 @@ export default function Page() {
           onGenerate={handleGenerate}
           isLoading={isLoading}
         />
+
+        {limitMessage && (
+          <p className="mt-4 text-[11px] leading-snug text-amber-400/80">
+            {limitMessage}
+          </p>
+        )}
       </aside>
 
       <main className="flex-1 bg-white overflow-y-auto">

@@ -1,13 +1,51 @@
 import { streamText, convertToModelMessages } from "ai";
 import { openai } from "@ai-sdk/openai";
 import OpenAI from "openai";
-import { ingredients, recipes } from "@/lib/schema";
+import { chatRequests, ingredients, recipes } from "@/lib/schema";
 import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
+import { and, eq, gte, sql } from "drizzle-orm";
 import type { Recipe } from "@/types/recipe";
+
+// Protège la clé OpenAI d'un usage abusif une fois l'app déployée publiquement.
+const IP_LIMIT_PER_DAY = 3;
+const GLOBAL_LIMIT_PER_DAY = 30;
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  return forwarded?.split(",")[0]?.trim() || "unknown";
+}
+
+async function countRequestsSince(since: Date, ip?: string): Promise<number> {
+  const conditions = ip ? and(eq(chatRequests.ip, ip), gte(chatRequests.createdAt, since)) : gte(chatRequests.createdAt, since);
+  const [row] = await db
+    .select({ count: sql<number>`count(*)::int` })
+    .from(chatRequests)
+    .where(conditions);
+  return row?.count ?? 0;
+}
 
 export async function POST(request: Request) {
   const { messages } = await request.json();
+  const ip = getClientIp(request);
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+  const globalCount = await countRequestsSince(since);
+  if (globalCount >= GLOBAL_LIMIT_PER_DAY) {
+    return new Response(
+      "La limite quotidienne de génération de recettes a été atteinte pour l'ensemble des visiteurs. Réessayez demain.",
+      { status: 429 }
+    );
+  }
+
+  const ipCount = await countRequestsSince(since, ip);
+  if (ipCount >= IP_LIMIT_PER_DAY) {
+    return new Response(
+      "Vous avez atteint la limite de génération de recettes pour aujourd'hui. Réessayez demain.",
+      { status: 429 }
+    );
+  }
+
+  await db.insert(chatRequests).values({ ip });
 
   const allIngredients = await db.select().from(ingredients).limit(100);
   const ingredientList = allIngredients

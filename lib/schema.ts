@@ -18,3 +18,11 @@ export const ingredients = pgTable('ingredients', {
     quantity: text('quantity').notNull(),
     createdAt: timestamp('created_at').defaultNow(),
 })
+
+// Journal des appels à /api/chat, utilisé pour limiter la consommation de l'API OpenAI
+// (limite par IP + limite globale quotidienne) quand l'app est déployée publiquement.
+export const chatRequests = pgTable('chat_requests', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    ip: text('ip').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+})

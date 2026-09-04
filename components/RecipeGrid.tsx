@@ -16,10 +16,10 @@ export default function RecipeGrid({ recipes, onSelect, onDelete }: Props) {
         <span className="text-7xl">🍳</span>
         <div>
           <p className="text-4xl font-bold tracking-tight text-stone-900 leading-tight">
-            Qu'est-ce qu'on<br />cuisine aujourd'hui ?
+            Qu&apos;est-ce qu&apos;on<br />cuisine aujourd&apos;hui ?
           </p>
           <p className="mt-3 text-sm text-stone-400">
-            Ajoutez vos ingrédients à gauche et laissez l'IA faire le reste.
+            Ajoutez vos ingrédients à gauche et laissez l&apos;IA faire le reste.
           </p>
         </div>
       </div>

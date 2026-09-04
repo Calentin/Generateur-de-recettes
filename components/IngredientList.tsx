@@ -15,7 +15,7 @@ export default function IngredientList({ ingredients, onDelete, onGenerate, isLo
   return (
     <div className="flex flex-col gap-6 flex-1">
       {isEmpty ? (
-        <p className="text-xs text-white/20 py-1">Aucun ingrédient pour l'instant.</p>
+        <p className="text-xs text-white/20 py-1">Aucun ingrédient pour l&apos;instant.</p>
       ) : (
         <ul className="flex flex-col flex-1">
           {ingredients.map((ingredient) => (
