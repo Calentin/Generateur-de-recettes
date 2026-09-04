@@ -130,7 +130,7 @@ export default function Page() {
 
       <aside className="w-64 flex-shrink-0 flex flex-col p-7 overflow-y-auto border-r border-white/[0.06]">
         <div className="flex items-center justify-between mb-10">
-          <span className="text-white text-sm font-semibold tracking-tight">Recette.AI</span>
+          <span className="text-white text-sm font-semibold tracking-tight">Papilo</span>
           {isLoading && (
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-white/30 animate-pulse" />
