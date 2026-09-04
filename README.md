@@ -2,7 +2,7 @@
 
 🇫🇷 [Français](#français) · 🇬🇧 [English](#english)
 
-**Démo en ligne / Live demo :** _[lien à venir / link coming soon]_
+**Démo en ligne / Live demo :** https://papilo-nu.vercel.app
 
 ---
 
