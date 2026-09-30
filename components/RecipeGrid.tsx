@@ -12,10 +12,10 @@ interface Props {
 export default function RecipeGrid({ recipes, onSelect, onDelete }: Props) {
   if (recipes.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 select-none text-center">
-        <span className="text-7xl">🍳</span>
+      <div className="flex flex-col items-center justify-center min-h-[50vh] sm:min-h-[60vh] gap-6 select-none text-center">
+        <span className="text-5xl sm:text-7xl">🍳</span>
         <div>
-          <p className="text-4xl font-bold tracking-tight text-stone-900 leading-tight">
+          <p className="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900 leading-tight">
             Qu&apos;est-ce qu&apos;on<br />cuisine aujourd&apos;hui ?
           </p>
           <p className="mt-3 text-sm text-stone-400">

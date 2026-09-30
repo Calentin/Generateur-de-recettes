@@ -126,10 +126,10 @@ export default function Page() {
 
 
   return (
-    <div className="flex h-screen overflow-hidden bg-stone-950">
+    <div className="flex flex-col sm:flex-row min-h-screen sm:h-screen sm:overflow-hidden bg-stone-950">
 
-      <aside className="w-64 flex-shrink-0 flex flex-col p-7 overflow-y-auto border-r border-white/[0.06]">
-        <div className="flex items-center justify-between mb-10">
+      <aside className="w-full sm:w-64 flex-shrink-0 flex flex-col p-5 sm:p-7 sm:overflow-y-auto border-b sm:border-b-0 sm:border-r border-white/[0.06]">
+        <div className="flex items-center justify-between mb-6 sm:mb-10">
           <span className="text-white text-sm font-semibold tracking-tight">Papilo</span>
           {isLoading && (
             <span className="flex items-center gap-1.5">
@@ -161,10 +161,10 @@ export default function Page() {
         )}
       </aside>
 
-      <main className="flex-1 bg-white overflow-y-auto">
-        <div className="p-10">
+      <main className="flex-1 bg-white sm:overflow-y-auto">
+        <div className="p-5 sm:p-10">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900">
               {recipe.length > 0
                 ? `${recipe.length} recette${recipe.length > 1 ? "s" : ""}`
                 : "Recettes"}
