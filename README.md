@@ -8,7 +8,7 @@
 
 Génère des recettes de cuisine à partir des ingrédients disponibles, en s'appuyant sur GPT (texte + images).
 
-## Fonctionnalités
+### Fonctionnalités
 - Ajoutez vos ingrédients, l'IA propose des recettes.
 - Réponse de l'IA en JSON strict, puis affichée sous forme de recette.
 - Streaming : la recette s'affiche au fur et à mesure.
@@ -55,7 +55,7 @@ Pour protéger votre clé OpenAI d'un usage abusif une fois l'app publique, `app
 
 ---
 
-## English
+### English
 
 Generates cooking recipes from your available ingredients, powered by GPT (text + images).
 
