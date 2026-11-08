@@ -2,6 +2,8 @@
 
 🇫🇷 [Français](#français) · 🇬🇧 [English](#english)
 
+<img width="800" height="408" alt="image" src="https://github.com/user-attachments/assets/8504a88a-cd6c-4bd6-97d6-0ad16a6cb855" />
+
 ---
 
 ## Français
